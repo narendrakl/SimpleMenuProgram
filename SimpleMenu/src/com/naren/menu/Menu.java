@@ -26,7 +26,8 @@ public class Menu {
 		Scanner sc1 = new Scanner(System.in);
 		Scanner sc2 = new Scanner(System.in);
 		BufferedReader br = null;
-		BufferedWriter bw = null;
+		BufferedWriter bw1 = null;
+		BufferedWriter bw=null;
 		String name, line, names1;
 		Iterator<String> it;
 		Collection<String> names = new ArrayList<String>();
@@ -73,28 +74,30 @@ public class Menu {
 					name = sc2.next();
 					try{
 						br=new BufferedReader(new FileReader("d:/names.txt"));
-						bw=new BufferedWriter(new FileWriter("d:/names.txt",true));
+						bw1=new BufferedWriter(new FileWriter("d:/names.txt",true));
 						while((line=br.readLine())!=null){
-							names.add(line);
-						}
-						if(names.contains(name)!= true){
-							names.remove(name);
-							System.out.println(names);
-						}else{
-							bw.write(line);
-							}
+							if(!line.equals(name)){
+								names.add(line);
+								if(names.contains(line)){
+									bw1.write(line);
+									bw1.newLine();
+								}
+							}else{
+								System.out.println("The name u entered successfully deleted"+" "+line);
+								}
+							}						
 						}catch(IOException e){
 						e.printStackTrace();
-					}/*finally(){
+					}finally{
 						try{
 							if(br!=null)
 								br.close();
-							if(bw!=null)
-								bw.close();
+							if(bw1!=null)
+								bw1.close();
 						}catch(IOException e2){
 							e2.printStackTrace();
 							}
-						}*/
+						}
 					break;
 			case 3:
 					System.out.println("Listing friends");
